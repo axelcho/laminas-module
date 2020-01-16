@@ -21,7 +21,7 @@ class PropertyOutput extends Output
     /**
      * @param int $verbosity
      * @param null $decorated
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param OutputFormatterInterface $formatter
      */
     public function __construct(
         $verbosity = self::VERBOSITY_NORMAL,
@@ -39,7 +39,7 @@ class PropertyOutput extends Output
      * @param string $message
      * @param bool $newline
      */
-    protected function doWrite($message, $newline)
+    protected function doWrite(string $message, bool $newline)
     {
         $this->message .= $message . ($newline === false ? '' : PHP_EOL);
     }

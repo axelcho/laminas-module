@@ -2,11 +2,11 @@
 
 namespace DoctrineModule\Form\Element;
 
-use DoctrineModule\Form\Element\Proxy;
 use Laminas\Form\Element;
 use Laminas\Form\Element\MultiCheckbox;
-use Laminas\Form\Form;
+use Laminas\Form\ElementInterface;
 use Laminas\Stdlib\ArrayUtils;
+use Traversable as TraversableAlias;
 
 class ObjectMultiCheckbox extends MultiCheckbox
 {
@@ -28,8 +28,8 @@ class ObjectMultiCheckbox extends MultiCheckbox
 
 
     /**
-     * @param array|\Traversable $options
-     * @return MultiCheckbox|\Laminas\Form\ElementInterface
+     * @param array|TraversableAlias $options
+     * @return MultiCheckbox|ElementInterface
      */
     public function setOptions($options)
     {
@@ -53,7 +53,7 @@ class ObjectMultiCheckbox extends MultiCheckbox
      */
     public function setValue($value)
     {
-        if ($value instanceof \Traversable) {
+        if ($value instanceof TraversableAlias) {
             $value = ArrayUtils::iteratorToArray($value);
         } elseif ($value == null) {
             return parent::setValue([]);

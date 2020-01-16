@@ -2,8 +2,8 @@
 
 namespace DoctrineModuleTest;
 
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Base test case to be used when a service manager instance is required
@@ -36,7 +36,7 @@ class ServiceManagerFactory
             $serviceManager->setFactory('ServiceListener', 'Zend\Mvc\Service\ServiceListenerFactory');
         }
 
-        /* @var $moduleManager \Zend\ModuleManager\ModuleManagerInterface */
+        /* @var $moduleManager \Laminas\ModuleManager\ModuleManagerInterface */
         $moduleManager = $serviceManager->get('ModuleManager');
         $moduleManager->loadModules();
 

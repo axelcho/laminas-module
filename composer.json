@@ -1,5 +1,5 @@
 {
-    "name":        "axelcho/doctrine-bridge",
+    "name":        "axelcho/laminas-module",
     "description": "Lamina Module that provides Doctrine basic functionality",
     "type":        "library",
     "license":     "MIT",
@@ -9,27 +9,7 @@
         "module",
         "laminas"
     ],
-    "authors":     [
-        {
-            "name": "Kyle Spraggs",
-            "email": "theman@spiffyjr.me",
-            "homepage": "http://www.spiffyjr.me/"
-        },
-        {
-            "name": "Marco Pivetta",
-            "email": "ocramius@gmail.com",
-            "homepage": "http://marco-pivetta.com/"
-        },
-        {
-            "name": "Guilherme Blanco",
-            "email": "guilhermeblanco@hotmail.com"
-        },
-        {
-            "name": "Michaël Gallego",
-            "email": "mic.gallego@gmail.com",
-            "homepage": "http://www.michaelgallego.fr"
-        }
-    ],
+
     "require": {
         "php":                               "^7.1",
         "doctrine/common":                   "^2.8",

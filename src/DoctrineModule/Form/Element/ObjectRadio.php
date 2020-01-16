@@ -2,9 +2,11 @@
 
 namespace DoctrineModule\Form\Element;
 
-use DoctrineModule\Form\Element\Proxy;
+use Laminas\Form\Element;
+use Laminas\Form\Element\MultiCheckbox;
 use Laminas\Form\Element\Radio as RadioElement;
-use Laminas\Form\Form;
+use Laminas\Form\ElementInterface;
+use Traversable;
 
 class ObjectRadio extends RadioElement
 {
@@ -25,8 +27,8 @@ class ObjectRadio extends RadioElement
     }
 
     /**
-     * @param  array|\Traversable $options
-     * @return \Laminas\Form\Element\MultiCheckbox|\Laminas\Form\ElementInterface
+     * @param  array|Traversable $options
+     * @return MultiCheckbox|ElementInterface
      */
     public function setOptions($options)
     {
@@ -37,7 +39,7 @@ class ObjectRadio extends RadioElement
     /**
      * @param string $key
      * @param mixed $value
-     * @return \Laminas\Form\Element
+     * @return Element
      */
     public function setOption($key, $value)
     {

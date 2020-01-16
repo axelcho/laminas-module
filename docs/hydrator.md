@@ -399,7 +399,7 @@ echo $blogPost->getUser()->getPassword(); // prints 2BorN0t2B
 
 #### Example 3 : OneToMany association
 
-DoctrineModule hydrator also handles OneToMany relationships (when use `Zend\Form\Element\Collection` element). Please
+DoctrineModule hydrator also handles OneToMany relationships (when use `Laminas\Form\Element\Collection` element). Please
 refer to the official [Zend Framework 2 documentation](http://framework.zend.com/manual/2.0/en/modules/zend.form.collections.html) to learn more about Collection.
 
 > Note: internally, for a given collection, if an array contains identifiers, the hydrator automatically fetches the
@@ -779,7 +779,7 @@ echo $data['foo']; // prints 'bar'
 It now only prints "bar", which shows clearly that the getter has not been called.
 
 
-### A complete example using Zend\Form
+### A complete example using Laminas\Form
 
 Now that we understand how the hydrator works, let's see how it integrates into the Zend Framework's Form component.
 We are going to use a simple example with, once again, a BlogPost and a Tag entities. We will see how we can create the
@@ -1039,7 +1039,7 @@ class BlogPostFieldset extends Fieldset implements InputFilterProviderInterface
 }
 ```
 
-Plain and easy. The blog post is just a simple fieldset with an element type of ``Zend\Form\Element\Collection``
+Plain and easy. The blog post is just a simple fieldset with an element type of ``Laminas\Form\Element\Collection``
 that represents the ManyToOne association.
 
 #### The form

@@ -5,6 +5,7 @@ namespace DoctrineModule\Authentication\Adapter;
 use DoctrineModule\Options\Authentication as AuthenticationOptions;
 use Laminas\Authentication\Adapter\AbstractAdapter;
 use Laminas\Authentication\Adapter\Exception;
+use Laminas\Authentication\Result;
 use Laminas\Authentication\Result as AuthenticationResult;
 use Doctrine\Common\Inflector\Inflector;
 
@@ -42,7 +43,8 @@ class ObjectRepository extends AbstractAdapter
     }
 
     /**
-     * @param  array|AuthenticationOptions $options
+     * @param $options
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -169,9 +171,9 @@ class ObjectRepository extends AbstractAdapter
      * Creates a Laminas\Authentication\Result object from the information that has been collected
      * during the authenticate() attempt.
      *
-     * @return \Laminas\Authentication\Result
+     * @return Result
      */
-    protected function createAuthenticationResult()
+    protected function createAuthenticationResult(): Result
     {
         return new AuthenticationResult(
             $this->authenticationResultInfo['code'],

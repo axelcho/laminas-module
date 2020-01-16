@@ -7,6 +7,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Laminas\Mvc\Console\View\ViewModel;
 use Laminas\Mvc\Controller\AbstractActionController;
 use DoctrineModule\Component\Console\Input\RequestInput;
+use Exception;
 
 /**
  * Index controller
@@ -17,30 +18,35 @@ use DoctrineModule\Component\Console\Input\RequestInput;
 class CliController extends AbstractActionController
 {
     /**
-     * @var \Symfony\Component\Console\Application
+     * @var Application
      */
     protected $cliApplication;
 
     /**
-     * @var \Symfony\Component\Console\Output\OutputInterface
+     * @var OutputInterface
      */
     protected $output;
 
     /**
-     * @param \Symfony\Component\Console\Application $cliApplication
+     * @param Application $cliApplication
      */
     public function __construct(Application $cliApplication)
     {
         $this->cliApplication = $cliApplication;
     }
 
+    /**
+     * @param OutputInterface $output
+     */
     public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
     }
 
+
     /**
-     * Index action - runs the console application
+     * @return ViewModel
+     * @throws Exception
      */
     public function cliAction()
     {

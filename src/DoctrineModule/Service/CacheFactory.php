@@ -2,10 +2,16 @@
 
 namespace DoctrineModule\Service;
 
+use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\FilesystemCache;
+use Doctrine\Common\Cache\PredisCache;
+use Doctrine\Common\Cache\MemcacheCache;
+use Doctrine\Common\Cache\MemcachedCache;
+use Doctrine\Common\Cache\RedisCache;
 use Doctrine\Common\Cache\CacheProvider;
 use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
 use RuntimeException;
-use Doctrine\Common\Cache;
 use DoctrineModule\Cache\ZendStorageCache;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
@@ -21,7 +27,7 @@ class CacheFactory extends AbstractFactory
     /**
      * {@inheritDoc}
      *
-     * @return \Doctrine\Common\Cache\Cache
+     * @return Cache
      *
      * @throws RuntimeException
      */
@@ -45,12 +51,12 @@ class CacheFactory extends AbstractFactory
             $cache = $container->get($class);
         } else {
             switch ($class) {
-                case Cache\FilesystemCache::class:
+                case FilesystemCache::class:
                     $cache = new $class($options->getDirectory());
                     break;
 
                 case ZendStorageCache::class:
-                case Cache\PredisCache::class:
+                case PredisCache::class:
                     $cache = new $class($instance);
                     break;
 
@@ -60,13 +66,13 @@ class CacheFactory extends AbstractFactory
             }
         }
 
-        if ($cache instanceof Cache\MemcacheCache) {
+        if ($cache instanceof MemcacheCache) {
             /* @var $cache MemcacheCache */
             $cache->setMemcache($instance);
-        } elseif ($cache instanceof Cache\MemcachedCache) {
+        } elseif ($cache instanceof MemcachedCache) {
             /* @var $cache MemcachedCache */
             $cache->setMemcached($instance);
-        } elseif ($cache instanceof Cache\RedisCache) {
+        } elseif ($cache instanceof RedisCache) {
             /* @var $cache RedisCache */
             $cache->setRedis($instance);
         }
@@ -79,15 +85,13 @@ class CacheFactory extends AbstractFactory
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @return \Doctrine\Common\Cache\Cache
-     *
-     * @throws RuntimeException
+     * @param ServiceLocatorInterface $container
+     * @return Cache|mixed
+     * @throws ContainerException
      */
     public function createService(ServiceLocatorInterface $container)
     {
-        return $this($container, \Doctrine\Common\Cache\Cache::class);
+        return $this($container, Cache::class);
     }
 
     /**

@@ -10,8 +10,11 @@ use Laminas\ModuleManager\ModuleManagerInterface;
 use Laminas\EventManager\EventInterface;
 use Laminas\Console\Adapter\AdapterInterface as Console;
 
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\StringInput;
 use DoctrineModule\Component\Console\Output\PropertyOutput;
+
+use Exception;
 
 /**
  * Base module for integration of Doctrine projects with ZF2 applications
@@ -68,10 +71,11 @@ class Module implements ConfigProviderInterface, InitProviderInterface, Bootstra
 
     /**
      * {@inheritDoc}
+     * @throws Exception
      */
     public function getConsoleUsage(Console $console)
     {
-        /* @var $cli \Symfony\Component\Console\Application */
+        /* @var $cli Application */
         $cli    = $this->serviceManager->get('doctrine.cli');
         $output = new PropertyOutput();
 

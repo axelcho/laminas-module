@@ -2,8 +2,10 @@
 namespace DoctrineModule\Service\Authentication;
 
 use DoctrineModule\Authentication\Adapter\ObjectRepository;
+use DoctrineModule\Options\Authentication;
 use DoctrineModule\Service\AbstractFactory;
 use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -21,7 +23,7 @@ class AdapterFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $options \DoctrineModule\Options\Authentication */
+        /* @var $options Authentication */
         $options = $this->getOptions($container, 'authentication');
 
         if (is_string($objectManager = $options->getObjectManager())) {
@@ -34,7 +36,8 @@ class AdapterFactory extends AbstractFactory
     /**
      * {@inheritDoc}
      *
-     * @return \DoctrineModule\Authentication\Adapter\ObjectRepository
+     * @return ObjectRepository
+     * @throws ContainerException
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

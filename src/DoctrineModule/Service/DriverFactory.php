@@ -3,6 +3,7 @@
 namespace DoctrineModule\Service;
 
 use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
 use InvalidArgumentException;
 use Doctrine\Common\Annotations;
 use Doctrine\Common\Persistence\Mapping\Driver\MappingDriver;
@@ -32,9 +33,11 @@ class DriverFactory extends AbstractFactory
 
         return $this->createDriver($container, $options);
     }
+
     /**
      * {@inheritDoc}
      * @return MappingDriver
+     * @throws ContainerException
      */
     public function createService(ServiceLocatorInterface $container)
     {

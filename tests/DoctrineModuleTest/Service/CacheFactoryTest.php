@@ -5,7 +5,7 @@ namespace DoctrineModuleTest\Service;
 use Doctrine\Common\Cache\ChainCache;
 use DoctrineModule\Service\CacheFactory;
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * Test for {@see \DoctrineModule\Service\CacheFactory}
@@ -70,7 +70,7 @@ class CacheFactoryTest extends BaseTestCase
                 ],
             ]
         );
-        $serviceManager->addAbstractFactory('Zend\Cache\Service\StorageCacheAbstractServiceFactory');
+        $serviceManager->addAbstractFactory('Laminas\Cache\Service\StorageCacheAbstractServiceFactory');
 
         $cache = $factory->createService($serviceManager);
 

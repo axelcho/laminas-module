@@ -2,10 +2,11 @@
 
 namespace DoctrineModule\Form\Element;
 
-use DoctrineModule\Form\Element\Proxy;
+use Laminas\Form\Element;
 use Laminas\Form\Element\Select as SelectElement;
-use Laminas\Form\Form;
 use Laminas\Stdlib\ArrayUtils;
+use Traversable as TraversableAlias;
+use Laminas\Form\ElementInterface;
 
 class ObjectSelect extends SelectElement
 {
@@ -26,8 +27,8 @@ class ObjectSelect extends SelectElement
     }
 
     /**
-     * @param  array|\Traversable $options
-     * @return SelectElement|\Laminas\Form\ElementInterface
+     * @param  array|TraversableAlias $options
+     * @return SelectElement|ElementInterface
      */
     public function setOptions($options)
     {
@@ -38,7 +39,7 @@ class ObjectSelect extends SelectElement
     /**
      * @param string $key
      * @param mixed $value
-     * @return \Laminas\Form\Element
+     * @return Element
      */
     public function setOption($key, $value)
     {
@@ -54,7 +55,7 @@ class ObjectSelect extends SelectElement
         $multiple = $this->getAttribute('multiple');
 
         if (true === $multiple || 'multiple' === $multiple) {
-            if ($value instanceof \Traversable) {
+            if ($value instanceof TraversableAlias) {
                 $value = ArrayUtils::iteratorToArray($value);
             } elseif ($value == null) {
                 return parent::setValue([]);

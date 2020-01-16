@@ -18,12 +18,12 @@ class ObjectRepository implements StorageInterface
 
     /**
      *
-     * @var \DoctrineModule\Options\Authentication
+     * @var AuthenticationOptions
      */
     protected $options;
 
     /**
-     * @param  array | \DoctrineModule\Options\Authentication $options
+     * @param  array | AuthenticationOptions $options
      * @return ObjectRepository
      */
     public function setOptions($options)
@@ -39,7 +39,7 @@ class ObjectRepository implements StorageInterface
     /**
      * Constructor
      *
-     * @param array | \DoctrineModule\Options\Authentication $options
+     * @param array | AuthenticationOptions $options
      */
     public function __construct($options = [])
     {

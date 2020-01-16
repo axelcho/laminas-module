@@ -1,6 +1,6 @@
 # Authentication
 
-Authentication through Doctrine is fully supported by DoctrineModule through an authentication adapter, and a specific storage implementation that relies on the database. Most of the time, those classes will be used in conjunction with `Zend\Authentication\AuthenticationService` class.
+Authentication through Doctrine is fully supported by DoctrineModule through an authentication adapter, and a specific storage implementation that relies on the database. Most of the time, those classes will be used in conjunction with `Laminas\Authentication\AuthenticationService` class.
 
 ### Simple example
 
@@ -8,7 +8,7 @@ In order to authenticate a user (or anything else) against Doctrine, the followi
 
 1. Set configuration that contains options about the entity that is authenticated (credential property, identity property…). It is not necessary to create a separate authentication adapter, this will be automatically created by the DoctrineModule based on the defined configuration.
 2. Create a storage adapter. If the authentication succeeds, the identifier of the entity will be automatically stored in session.
-3. Create a `Zend\Authentication\AuthenticationService`instance that contains both the authentication adapter and the storage adapter.
+3. Create a `Laminas\Authentication\AuthenticationService`instance that contains both the authentication adapter and the storage adapter.
 
 #### Authentication factory
 
@@ -123,9 +123,9 @@ class Module
 }
 ```
 
-Please note that I am using here a ``Zend\Authentication\AuthenticationService`` name, but it can be anything else (``my_auth_service``…). However, using the name ``Zend\Authentication\AuthenticationService`` will allow it to be recognised by the ZF2 [Identity view helper](https://framework.zend.com/manual/2.4/en/modules/zend.view.helpers.identity.html).
+Please note that I am using here a ``Laminas\Authentication\AuthenticationService`` name, but it can be anything else (``my_auth_service``…). However, using the name ``Zend\Authentication\AuthenticationService`` will allow it to be recognised by the ZF2 [Identity view helper](https://framework.zend.com/manual/2.4/en/modules/zend.view.helpers.identity.html).
 
-In ZF3, you can inject the ``Zend\Authentication\AuthenticationService`` into your controller factories as in the example below:
+In ZF3, you can inject the ``Laminas\Authentication\AuthenticationService`` into your controller factories as in the example below:
 
 ```php
 <?php
@@ -146,7 +146,7 @@ class ApplicationControllerFactory implements FactoryInterface
 
 #### Using the AuthenticationService
 
-Now that we have defined how to create a `Zend\Authentication\AuthenticationService` object we can use it in our code. For more information about Zend authentication mechanisms please read [the ZF 2 Authentication's documentation](http://framework.zend.com/manual/2.4/en/modules/zend.authentication.intro.html).
+Now that we have defined how to create a `Laminas\Authentication\AuthenticationService` object we can use it in our code. For more information about Zend authentication mechanisms please read [the ZF 2 Authentication's documentation](http://framework.zend.com/manual/2.4/en/modules/zend.authentication.intro.html).
 
 Here is an example of how we could use it from a controller action (we stripped any Form things for simplicity):
 

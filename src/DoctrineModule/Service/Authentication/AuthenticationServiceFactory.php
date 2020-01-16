@@ -1,8 +1,10 @@
 <?php
 namespace DoctrineModule\Service\Authentication;
 
+use BadMethodCallException;
 use DoctrineModule\Service\AbstractFactory;
 use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
@@ -27,10 +29,11 @@ class AuthenticationServiceFactory extends AbstractFactory
         );
     }
 
+
     /**
-     *
-     * @param \Laminas\ServiceManager\ServiceLocatorInterface $container
-     * @return \Laminas\Authentication\AuthenticationService
+     * @param ServiceLocatorInterface $container
+     * @return AuthenticationService|mixed|object
+     * @throws ContainerException
      */
     public function createService(ServiceLocatorInterface $container)
     {
@@ -42,6 +45,6 @@ class AuthenticationServiceFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        throw new \BadMethodCallException('Not implemented');
+        throw new BadMethodCallException('Not implemented');
     }
 }

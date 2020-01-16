@@ -98,7 +98,7 @@ class ZendStorageCache extends CacheProvider
             Cache::STATS_MEMORY_USAGE      => $storage instanceof TotalSpaceCapableInterface
                 ? $storage->getTotalSpace()
                 : null,
-            Cache::STATS_MEMORY_AVAILIABLE => $storage instanceof AvailableSpaceCapableInterface
+            Cache::STATS_MEMORY_AVAILABLE => $storage instanceof AvailableSpaceCapableInterface
                 ? $storage->getAvailableSpace()
                 : null,
         ];

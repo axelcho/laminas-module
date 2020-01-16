@@ -170,7 +170,7 @@ $objectExistsValidator = new \DoctrineModule\Validator\ObjectExists([
 
 There are two things you have to think about when using `DoctrineModule\Validator\UniqueObject`;  As mentioned above you have to pass an ObjectManager as `object_manager` option and second you have to pass a value for every identifier your entity has.
 
-* If you leave out the `use_context` option or set it to `false` you have to pass an array containing the `fields`- and `identifier`-values into `isValid()`. When using `Zend\Form` this behaviour is needed if you're using fieldsets.
-* If you set the `use_context` option to `true` you have to pass the `fields`-values as first argument and an array containing the `identifier`-values as second argument into `isValid()`. When using `Zend\Form` without fieldsets, this behaviour would be needed.
+* If you leave out the `use_context` option or set it to `false` you have to pass an array containing the `fields`- and `identifier`-values into `isValid()`. When using `Laminas\Form` this behaviour is needed if you're using fieldsets.
+* If you set the `use_context` option to `true` you have to pass the `fields`-values as first argument and an array containing the `identifier`-values as second argument into `isValid()`. When using `Laminas\Form` without fieldsets, this behaviour would be needed.
 
 __Important:__ Whatever you choose, please ensure that the `identifier`-values are named by the field-names, not by the database-column.

@@ -7,6 +7,7 @@ use Laminas\Hydrator\Strategy\StrategyInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Inflector\Inflector;
+use ReflectionException;
 
 /**
  * @license MIT
@@ -81,7 +82,7 @@ abstract class AbstractCollectionStrategy implements StrategyInterface
      *
      * @param  object $object
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return AbstractCollectionStrategy
      */
@@ -118,7 +119,7 @@ abstract class AbstractCollectionStrategy implements StrategyInterface
     /**
      * Return the collection by value (using the public API)
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return Collection
      */
@@ -145,6 +146,7 @@ abstract class AbstractCollectionStrategy implements StrategyInterface
      * Return the collection by reference (not using the public API)
      *
      * @return Collection
+     * @throws ReflectionException
      */
     protected function getCollectionFromObjectByReference()
     {

@@ -2,6 +2,8 @@
 
 namespace DoctrineModule\Stdlib\Hydrator\Strategy;
 
+use ReflectionException;
+
 /**
  * When this strategy is used for Collections, if the new collection does not contain elements that are present in
  * the original collection, then this strategy remove elements from the original collection. For instance, if the
@@ -19,6 +21,7 @@ class AllowRemoveByReference extends AbstractCollectionStrategy
 {
     /**
      * {@inheritDoc}
+     * @throws ReflectionException
      */
     public function hydrate($value)
     {

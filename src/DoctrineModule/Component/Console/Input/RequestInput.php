@@ -17,8 +17,8 @@ class RequestInput extends ArgvInput
     /**
      * Constructor
      *
-     * @param \Laminas\Console\Request $request
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
+     * @param Request $request
+     * @param InputDefinition $definition
      */
     public function __construct(Request $request, InputDefinition $definition = null)
     {

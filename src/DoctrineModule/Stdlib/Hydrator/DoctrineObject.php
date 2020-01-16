@@ -6,7 +6,10 @@ use DateTime;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Inflector\Inflector;
+use DoctrineModule\Stdlib\Hydrator\Strategy\AbstractCollectionStrategy;
+use Exception;
 use InvalidArgumentException;
+use ReflectionException;
 use RuntimeException;
 use Traversable;
 use Laminas\Stdlib\ArrayUtils;
@@ -105,8 +108,9 @@ class DoctrineObject extends AbstractHydrator
     /**
      * Extract values from an object
      *
-     * @param  object $object
+     * @param object $object
      * @return array
+     * @throws ReflectionException
      */
     public function extract($object)
     {
@@ -122,9 +126,10 @@ class DoctrineObject extends AbstractHydrator
     /**
      * Hydrate $object with the provided $data.
      *
-     * @param  array  $data
-     * @param  object $object
+     * @param array $data
+     * @param object $object
      * @return object
+     * @throws ReflectionException
      */
     public function hydrate(array $data, $object)
     {
@@ -152,7 +157,7 @@ class DoctrineObject extends AbstractHydrator
     /**
      * Prepare strategies before the hydrator is used
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @return void
      */
     protected function prepareStrategies()
@@ -236,8 +241,9 @@ class DoctrineObject extends AbstractHydrator
      * Extract values from an object using a by-reference logic (this means that values are
      * directly fetched without using the public API of the entity, in this case, getters)
      *
-     * @param  object $object
+     * @param object $object
      * @return array
+     * @throws ReflectionException
      */
     protected function extractByReference($object)
     {
@@ -267,6 +273,7 @@ class DoctrineObject extends AbstractHydrator
      * Apply strategies first, then the type conversions
      *
      * @inheritdoc
+     * @throws Exception
      */
     public function hydrateValue($name, $value, $data = null)
     {
@@ -283,10 +290,12 @@ class DoctrineObject extends AbstractHydrator
      * Hydrate the object using a by-value logic (this means that it uses the entity API, in this
      * case, setters)
      *
-     * @param  array  $data
-     * @param  object $object
-     * @throws RuntimeException
+     * @param array $data
+     * @param object $object
      * @return object
+     * @throws ReflectionException
+     * @throws RuntimeException
+     * @throws Exception
      */
     protected function hydrateByValue(array $data, $object)
     {
@@ -340,9 +349,11 @@ class DoctrineObject extends AbstractHydrator
      * using the public API, in this case setters, and hence override any logic that could be done in those
      * setters)
      *
-     * @param  array  $data
-     * @param  object $object
+     * @param array $data
+     * @param object $object
      * @return object
+     * @throws ReflectionException
+     * @throws Exception
      */
     protected function hydrateByReference(array $data, $object)
     {
@@ -396,7 +407,7 @@ class DoctrineObject extends AbstractHydrator
     protected function tryConvertArrayToObject($data, $object)
     {
         $metadata         = $this->metadata;
-        $identifierNames  = $metadata->getIdentifierFieldNames($object);
+        $identifierNames  = $metadata->getIdentifierFieldNames();
         $identifierValues = [];
 
         if (empty($identifierNames)) {
@@ -422,9 +433,10 @@ class DoctrineObject extends AbstractHydrator
      * and a target instance will be initialized and then hydrated. The hydrated
      * target will be returned.
      *
-     * @param  string $target
-     * @param  mixed  $value
-     * @return object
+     * @param string $target
+     * @param $value
+     * @return object|null
+     * @throws ReflectionException
      */
     protected function toOne($target, $value)
     {
@@ -449,14 +461,13 @@ class DoctrineObject extends AbstractHydrator
      * strategies that inherit from AbstractCollectionStrategy class, and that add or remove elements but without
      * changing the collection of the object
      *
-     * @param  object $object
-     * @param  mixed  $collectionName
-     * @param  string $target
-     * @param  mixed  $values
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return void
+     * @param $object
+     * @param string $collectionName
+     * @param string $target
+     * @param $values
+     * @throws ReflectionException
+     * @throws InvalidArgumentException
+     * @throws Exception
      */
     protected function toMany($object, $collectionName, $target, $values)
     {
@@ -523,7 +534,7 @@ class DoctrineObject extends AbstractHydrator
 
         // Set the object so that the strategy can extract the Collection from it
 
-        /** @var \DoctrineModule\Stdlib\Hydrator\Strategy\AbstractCollectionStrategy $collectionStrategy */
+        /** @var AbstractCollectionStrategy $collectionStrategy */
         $collectionStrategy = $this->getStrategy($collectionName);
         $collectionStrategy->setObject($object);
 
@@ -537,9 +548,11 @@ class DoctrineObject extends AbstractHydrator
      * See Documentation of Doctrine Mapping Types for defaults
      *
      * @link http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/basic-mapping.html#doctrine-mapping-types
-     * @param  mixed  $value
-     * @param  string $typeOfField
-     * @return DateTime
+     *
+     * @param $value
+     * @param string $typeOfField
+     * @return bool|DateTime|float|int|string|null
+     * @throws Exception
      */
     protected function handleTypeConversions($value, $typeOfField)
     {

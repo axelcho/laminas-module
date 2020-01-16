@@ -7,8 +7,9 @@ use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
-use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Symfony\Component\Console\Application;
 
 /**
  * Factory responsible of instantiating an {@see \DoctrineModule\Controller\CliController}
@@ -33,16 +34,17 @@ class CliControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var $application \Symfony\Component\Console\Application */
+        /* @var $application Application */
         $application = $container->get('doctrine.cli');
 
         return new CliController($application);
     }
 
+
     /**
-     * {@inheritDoc}
-     *
-     * @return \DoctrineModule\Controller\CliController
+     * @param ServiceLocatorInterface $container
+     * @return CliController
+     * @throws ContainerException
      */
     public function createService(ServiceLocatorInterface $container)
     {

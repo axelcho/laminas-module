@@ -2,10 +2,11 @@
 
 namespace DoctrineModule\ServiceFactory;
 
+use DoctrineModule\Service\AbstractFactory;
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\AbstractFactoryInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+
 
 /**
  * Abstract service factory capable of instantiating services whose names match the
@@ -37,29 +38,13 @@ class AbstractDoctrineServiceFactory implements AbstractFactoryInterface
         }
 
         $factoryClass = $mappings['factoryClass'];
-        /* @var $factory \DoctrineModule\Service\AbstractFactory */
+        /* @var $factory AbstractFactory */
         $factory = new $factoryClass($mappings['serviceName']);
 
-        return $factory->createService($container);
+        return (method_exists($factory, 'createService'))? $factory->createService($container): null;
     }
 
-    /**
-     * {@inheritDoc}
-     * @deprecated
-     */
-    public function canCreateServiceWithName(ServiceLocatorInterface $container, $name, $requestedName)
-    {
-        return $this->canCreate($container, $requestedName);
-    }
 
-    /**
-     * {@inheritDoc}
-     * @deprecated
-     */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
-    {
-        return $this($serviceLocator, $requestedName);
-    }
 
     /**
      * @param ContainerInterface $serviceLocator
